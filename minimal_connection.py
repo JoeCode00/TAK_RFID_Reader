@@ -74,7 +74,7 @@ async def main():
     adds your serializer to the asyncio task list.
     """
     config = ConfigParser()
-    config["mycottool"] = {"COT_URL": "tcp://172.20.10.6:8087"}
+    config["mycottool"] = {"COT_URL": "tcp://172.20.10.6:8088"}
     config = config["mycottool"]
 
     # Initializes worker queues and tasks.
