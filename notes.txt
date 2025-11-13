@@ -1,1 +1,7 @@
-how to create EUD and CA cert
+how to create client and CA cert
+172.20.10.6/api/truststore
+cd ~/TAK_RFID_Reader/
+openssl pkcs12 -in truststore_root_172.20.10.6.p12 -cacerts -nokeys -out ca.pem -nodes
+atakatak
+
+
