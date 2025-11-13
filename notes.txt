@@ -1,0 +1,4 @@
+how to create cert
+openssl genpkey -algorithm RSA -out eud_key.pem -pkeyopt rsa_keygen_bits:2048
+openssl req -new -x509 -key eud_key.pem -out eud_cert.pem -days 365 -subj "/C=US/ST=FL/L=Gainesville/O=MyOrg/OU=EUD/CN=pyTAK-EUD"
+cat eud_key.pem eud_cert.pem > eud_client.pem
