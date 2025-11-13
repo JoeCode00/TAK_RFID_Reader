@@ -7,28 +7,19 @@ import pytak
 from configparser import ConfigParser
 
 
+
 def gen_cot():
-    """Generate CoT Event."""
+    """Generate minimal CoT Event."""
     root = ET.Element("event")
     root.set("version", "2.0")
-    root.set("type", "a-h-A-M-A")  # insert your type of marker
-    root.set("uid", "name_your_marker")
-    root.set("how", "m-g")
+    root.set("type", "a-f-G-E-V-C")  # minimal type of marker
+    root.set("uid", "minimal_marker")
+    root.set("how", "h-g-i-g-o")  # minimal 'how' value
     root.set("time", pytak.cot_time())
     root.set("start", pytak.cot_time())
-    root.set(
-        "stale", pytak.cot_time(60)
-    )  # time difference in seconds from 'start' when stale initiates
+    root.set("stale", pytak.cot_time(60))  # 60 seconds stale time
 
-    pt_attr = {
-        "lat": "40.781789",  # set your lat (this loc points to Central Park NY)
-        "lon": "-73.968698",  # set your long (this loc points to Central Park NY)
-        "hae": "0",
-        "ce": "10",
-        "le": "10",
-    }
-
-    ET.SubElement(root, "point", attrib=pt_attr)
+    ET.SubElement(root, "point", attrib={"lat": "0.0", "lon": "0.0", "hae": "0", "ce": "9999999", "le": "9999999"})
 
     return ET.tostring(root)
 
