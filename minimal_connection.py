@@ -75,7 +75,7 @@ async def main():
     """
     config = ConfigParser()
 
-    config["mycottool"] = {"COT_URL": "tls://172.20.10.6:8088",
+    config["mycottool"] = {"COT_URL": "tls://172.20.10.6:8089",
                            "PYTAK_TLS_CLIENT_CERT": "/home/pi/TAK_RFID_Reader/pytak-cert.pem"}
     config = config["mycottool"]
 
