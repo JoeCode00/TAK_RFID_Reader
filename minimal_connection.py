@@ -1,5 +1,5 @@
-from pyTAK import Client
-from pyTAK.cot import Event, Point, Detail
+from pytak import Client
+from pytak.cot import Event, Point, Detail
 
 client = Client(host="172.20.10.6", port=8087, callsign="PYTAK_USER")
 client.connect()
