@@ -5,22 +5,15 @@ import pytak
 async def main():
     """Connect to TAK server over TCP"""
     # Configure the TAK client
-    config = {
-        'COT_URL': 'tcp://172.20.10.6:8087',  # TAK server TCP endpoint
-    }
+    config = pytak.Config()
+    config.COT_URL = 'tcp://172.20.10.6:8087'  # TAK server TCP endpoint
     
-    # Create a TAK client
-    client = pytak.TXWorker(
-        # event_queue=asyncio.Queue(),
-        url=config['COT_URL']
-    )
+    # Create event queue
+    clitool = pytak.CLITool(config)
+    await clitool.setup()
     
-    try:
-        await client.run()
-    except KeyboardInterrupt:
-        print("Shutting down...")
-    finally:
-        await client.stop()
+    # Create and run the client
+    await clitool.run()
 
 
 if __name__ == '__main__':
