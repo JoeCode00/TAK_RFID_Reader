@@ -11,7 +11,7 @@ async def main():
     
     # Create a TAK client
     client = pytak.TXWorker(
-        event_queue=asyncio.Queue(),
+        # event_queue=asyncio.Queue(),
         url=config['COT_URL']
     )
     
