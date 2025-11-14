@@ -11,18 +11,16 @@ async def main():
     config.add_section('pytak')
     config.set('pytak', 'COT_URL', 'tcp://172.20.10.6:8087')
     
-    # Create event queue for outgoing messages
+    # Create event queues
     tx_queue = asyncio.Queue()
-    
-    # Create TAK client
-    client = pytak.TAKClient(config, tx_queue)
+    rx_queue = asyncio.Queue()
     
     # Create a basic CoT event
-    cot_event = pytak.functions.create_cot_xml(
+    cot_event = pytak.gen_cot_xml(
         uid="pytak-test-001",
-        type="a-f-G-E-S",  # Ground equipment
-        latitude=37.7749,
-        longitude=-122.4194,
+        cot_type="a-f-G-E-S",  # Ground equipment
+        lat=37.7749,
+        lon=-122.4194,
         stale=60,
         how="h-e"
     )
@@ -30,16 +28,25 @@ async def main():
     # Queue the event for transmission
     await tx_queue.put(cot_event)
     print(f"Sending CoT event to 172.20.10.6:8087...")
-    print(f"UID: {cot_event.get('uid')}")
     
-    # Start client and send
-    await client.start()
-    await tx_queue.join()
+    # Create protocol (network connection)
+    reader, writer = await pytak.protocol_factory(config)
+    
+    # Create TX worker to send messages
+    tx_worker = pytak.TXWorker(tx_queue, config, writer)
+    
+    # Run the TX worker to send the event
+    done, pending = await asyncio.wait(
+        {tx_worker.run()},
+        timeout=5.0,
+        return_when=asyncio.FIRST_COMPLETED
+    )
     
     print("Event sent successfully!")
     
-    # Stop the client
-    await client.stop()
+    # Close connection
+    writer.close()
+    await writer.wait_closed()
 
 if __name__ == "__main__":
     asyncio.run(main())
