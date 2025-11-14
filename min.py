@@ -7,7 +7,7 @@ async def main():
     """Connect to TAK server over TCP"""
     # Configure the TAK client
     config = configparser.ConfigParser()
-    config['DEFAULT'] = {
+    config['pytak'] = {
         'COT_URL': 'tcp://172.20.10.6:8087'
     }
     
@@ -15,7 +15,7 @@ async def main():
     tx_queue = asyncio.Queue()
     rx_queue = asyncio.Queue()
     
-    clitool = pytak.CLITool(config, tx_queue, rx_queue)
+    clitool = pytak.CLITool(config['pytak'], tx_queue, rx_queue)
     await clitool.setup()
     
     # Create and run the client
