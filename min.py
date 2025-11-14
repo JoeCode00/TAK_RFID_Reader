@@ -1,26 +1,11 @@
-import asyncio
-import configparser
-import pytak
+from atakcots import CotConfig, push_cot
 
 
-async def main():
-    """Connect to TAK server over TCP"""
-    # Configure the TAK client
-    config = configparser.ConfigParser()
-    config['pytak'] = {
-        'COT_URL': 'tcp://172.20.10.6:8089'
-    }
-    
-    # Create event queue and workers
-    tx_queue = asyncio.Queue()
-    rx_queue = asyncio.Queue()
-    
-    clitool = pytak.CLITool(config['pytak'], tx_queue, rx_queue)
-    await clitool.setup()
-    
-    # Create and run the client
-    await clitool.run()
+if __name__ == "__main__":
+    cot_config = CotConfig(
+        uid="Message",
+        latitude=40.74931973338903,
+        longitude=-73.96791282024928
+    )
 
-
-if __name__ == '__main__':
-    asyncio.run(main())
+    push_cot(cot_config, "172.20.10.6")
