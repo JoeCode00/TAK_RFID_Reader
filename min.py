@@ -8,7 +8,7 @@ async def main():
     # Configure the TAK client
     config = configparser.ConfigParser()
     config['pytak'] = {
-        'COT_URL': 'tcp://172.20.10.6:8087'
+        'COT_URL': 'tcp://172.20.10.6:8089'
     }
     
     # Create event queue and workers
