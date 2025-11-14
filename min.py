@@ -9,7 +9,7 @@ async def main():
     # Create configuration
     config = ConfigParser()
     config.add_section('pytak')
-    config.set('pytak', 'COT_URL', 'tcp://172.20.10.6:8087')
+    config.set('COT_URL', 'tcp://172.20.10.6:8087')
     
     # Create event queues
     tx_queue = asyncio.Queue()
