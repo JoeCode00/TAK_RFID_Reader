@@ -22,7 +22,6 @@ async def main():
         lat=37.7749,
         lon=-122.4194,
         stale=60,
-        how="h-e"
     )
     
     # Queue the event for transmission
