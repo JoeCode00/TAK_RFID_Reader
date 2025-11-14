@@ -4,7 +4,6 @@ cot_config = CotConfig(
     uid="Message",
     latitude=40.74931973338903,
     longitude=-73.96791282024928,
-    attachment_paths="sandeot.png"
 )
 
 server = CotServer("172.20.10.6", 8000)
