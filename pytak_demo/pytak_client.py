@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import asyncio
-import xml.etree.ElementTree as ET
 
 from configparser import ConfigParser
 
@@ -19,25 +18,12 @@ class MySerializer(pytak.QueueWorker):
         event = data
         await self.put_queue(event)
 
-    async def run(self):
+    async def run(self, number_of_iterations=-1):
         """Run the loop for processing or generating pre-CoT data."""
-        while True:
-            data = tak_pong()
+        while 1:
+            data = pytak.gen_cot(lat=37.76, lon=-122.4975)
             await self.handle_data(data)
             await asyncio.sleep(20)
-
-
-def tak_pong():
-    """Generate a simple takPong CoT Event."""
-    root = ET.Element("event")
-    root.set("version", "2.0")
-    root.set("type", "t-x-d-d")
-    root.set("uid", "takPong")
-    root.set("how", "m-g")
-    root.set("time", pytak.cot_time())
-    root.set("start", pytak.cot_time())
-    root.set("stale", pytak.cot_time(3600))
-    return ET.tostring(root)
 
 
 async def main():
@@ -45,8 +31,18 @@ async def main():
     adds your serializer to the asyncio task list.
     """
     config = ConfigParser()
-    config["mycottool"] = {"COT_URL": "tcp://45.55.177.62:8088"}
-    config = config["mycottool"]
+    # Generate certs with:
+    # $ sudo /opt/tak/certs/makeCert.sh client pytak-test01
+    config["tls_send"] = {
+        "COT_URL": "tls://45.55.177.62:8089",
+        "PYTAK_TLS_CERT_ENROLLMENT_USERNAME": "test",
+        "PYTAK_TLS_CERT_ENROLLMENT_PASSWORD": "test",
+        "PYTAK_TLS_DONT_VERIFY": True,
+        "PYTAK_TLS_DONT_CHECK_HOSTNAME": True,
+        # "DEBUG": True,
+        "TAK_PROTO": 0,
+    }
+    config = config["tls_send"]
 
     # Initializes worker queues and tasks.
     clitool = pytak.CLITool(config)
