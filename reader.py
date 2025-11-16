@@ -38,7 +38,7 @@ try:
         ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
 
         received_line = ser.readline()
-        ser.clear_input_buffer()
+        ser.flush()
         string_data = received_line.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
         if len(string_data)>2:
             print(string_data)
