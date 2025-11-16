@@ -37,16 +37,18 @@ try:
     while True:
         ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
 
-        # --- Receiving Bytes ---
-        # Read up to 100 bytes (or until timeout)
-        if ser.in_waiting >= 39:
-            time.sleep(0.2)  # Wait a bit for all data to arrive
+        data = ser.readall()
+        print(data)
+        # # --- Receiving Bytes ---
+        # # Read up to 100 bytes (or until timeout)
+        # if ser.in_waiting >= 39:
+        #     time.sleep(0.2)  # Wait a bit for all data to arrive
 
-            received_data = ser.read(80)
-            decode = received_data.decode('utf-8').strip()
-            if decode[1] != '\r':
-                # Decode the received bytes to a string
-                print(received_data)
+        #     received_data = ser.read(80)
+        #     decode = received_data.decode('utf-8').strip()
+        #     if decode[1] != '\r':
+        #         # Decode the received bytes to a string
+        #         print(received_data)
         # else:
         #     print("No data received within the timeout period.")
 
