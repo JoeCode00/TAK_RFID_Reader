@@ -47,7 +47,7 @@ try:
             # if decode[1] != ' ':
             #     # Decode the received bytes to a string
             #     print(decode)
-            print(hex(decode[1]))
+            print(decode[1].encode('utf-8'))
         # else:
         #     print("No data received within the timeout period.")
 
