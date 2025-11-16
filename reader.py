@@ -30,7 +30,10 @@ ser = serial.Serial(
 
 try:
     # Open the serial port
-    ser.open()
+    try:
+        ser.open()
+    except Exception as e:
+        False
     
     ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
 
