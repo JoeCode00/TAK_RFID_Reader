@@ -25,7 +25,7 @@ ser = serial.Serial(
     bytesize=serial.EIGHTBITS,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
-    timeout=0  # Read timeout in seconds
+    timeout=0.2  # Read timeout in seconds
 )
 
 try:
@@ -37,16 +37,26 @@ try:
     while True:
         ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
 
-        if ser.in_waiting > 28:
-                data = ser.read(ser.in_waiting) # Read all available bytes
-                string_data = data.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
-                split = string_data.split(",")
-                for item in split:
-                    if item is not None:
-                        if len(item)>0:
-                            if item[0]=="E":
-                                card = item
-                                print(card)
+        received_line = ser.readline()
+        string_data = received_line.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
+        split = string_data.split(",")
+        for item in split:
+            if item is not None:
+                if len(item)>0:
+                    if item[0]=="E":
+                        card = item
+                        print(card)
+
+        # if ser.in_waiting > 28:
+        #     data = ser.read(ser.in_waiting) # Read all available bytes
+        #     string_data = data.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
+        #     split = string_data.split(",")
+        #     for item in split:
+        #         if item is not None:
+        #             if len(item)>0:
+        #                 if item[0]=="E":
+        #                     card = item
+        #                     print(card)
         time.sleep(0.01)
     # # --- Receiving Bytes ---
     # # Read up to 100 bytes (or until timeout)
