@@ -42,10 +42,11 @@ try:
                 string_data = data.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
                 split = string_data.split(",")
                 for item in split:
-                    if len(item)>0:
-                        if item[0]=="E":
-                            card = item
-                            print(card)
+                    if item is not None:
+                        if len(item)>0:
+                            if item[0]=="E":
+                                card = item
+                                print(card)
         time.sleep(0.01)
     # # --- Receiving Bytes ---
     # # Read up to 100 bytes (or until timeout)
