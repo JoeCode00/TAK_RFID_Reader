@@ -1,7 +1,5 @@
 import gps
 import gps.L76X
-import time
-import math
 
 try:
     x = gps.L76X.L76X()
