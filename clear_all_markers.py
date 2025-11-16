@@ -11,7 +11,5 @@ response_markers = s.get(f"{address}/api/markers", json={}, verify=False)
 for marker in response_markers.json()['results']:
     uid = marker['uid']
     print(f"Deleting marker with UID: {uid}")
-    
-    # DELETE with uid as query parameter
-    response_delete = s.delete(f"{address}/api/markers", params={'uid': str(uid)}, verify=False)
+    response_delete = s.delete(f"{address}/api/markers", params={'uid': uid}, verify=False)
     print(f"Response: {response_delete.status_code} - {response_delete.text}")
