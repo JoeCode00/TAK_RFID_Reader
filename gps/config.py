@@ -34,7 +34,7 @@ class config(object):
         return data
         
     def Uart_Set_Baudrate(ser, Baudrate):
-         ser.serial = serial.Serial("/dev/ttyAMA0",Baudrate)
+         ser.serial = serial.Serial("/dev/ttyS0",Baudrate)
 
     
     
