@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-import config
+import gps.config
 import math
 import time
 from micropyGPS import MicropyGPS
