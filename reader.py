@@ -39,7 +39,7 @@ try:
 
         data = ser.readall()
         cleaned = data.replace(b'\nU\r\n', b'').replace(b'\nX\r\n', b'')
-        if cleaned != b'' and cleaned != b'\r' and cleaned != b'\n' and cleaned != b'U' and cleaned != b'X':
+        if cleaned not in [b'', b'\r', b'\n', b'U', b'X', b'\r\n', b'\nU', b'\nX', b'U\r\n', b'X\r\n', b'X\r', b'U\r']:
             print(cleaned)
         # # --- Receiving Bytes ---
         # # Read up to 100 bytes (or until timeout)
