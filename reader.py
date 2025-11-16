@@ -13,3 +13,46 @@ for marker in response_markers.json()['results']:
     lattitude = marker['point']['latitude']
     longitude = marker['point']['longitude']
     print(callsign, lattitude, longitude)
+
+import serial
+
+# Configure the serial port
+# Replace 'COM1' with your actual serial port (e.g., '/dev/ttyUSB0' on Linux)
+# Set the baudrate to match your device's configuration
+ser = serial.Serial(
+    port='/dev/ttyUSB0',
+    baudrate=38400,
+    bytesize=serial.EIGHTBITS,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    timeout=1  # Read timeout in seconds
+)
+
+try:
+    # Open the serial port
+    ser.open()
+    
+    ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
+
+    # --- Receiving Bytes ---
+    # Read up to 100 bytes (or until timeout)
+    received_data = ser.read(100)
+    if received_data:
+        # Decode the received bytes to a string
+        print(f"Received: {received_data.decode('utf-8')}")
+    else:
+        print("No data received within the timeout period.")
+
+    # You can also use readline() to read until a newline character
+    # received_line = ser.readline()
+    # if received_line:
+    #     print(f"Received line: {received_line.decode('utf-8').strip()}")
+
+except serial.SerialException as e:
+    print(f"Error: {e}")
+
+finally:
+    # Close the serial port when done
+    if ser.is_open:
+        ser.close()
+        print(f"Serial port {ser.port} closed.")
