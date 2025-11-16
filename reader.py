@@ -25,7 +25,7 @@ ser = serial.Serial(
     bytesize=serial.EIGHTBITS,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
-    timeout=0.1  # Read timeout in seconds
+    timeout=0.2  # Read timeout in seconds
 )
 
 try:
