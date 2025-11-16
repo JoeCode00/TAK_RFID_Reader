@@ -1,26 +1,55 @@
 import requests
 import RPi.GPIO as GPIO
 import time
+import atexit
 
 # GPIO setup for button
 BUTTON_PIN = 18  # Change this to your desired GPIO pin number
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+
+def setup_gpio():
+    """Initialize GPIO with proper cleanup"""
+    try:
+        # Clean up any previous GPIO setup
+        GPIO.cleanup()
+
+        # Set GPIO mode and setup button pin
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+        # Register cleanup function to run on exit
+        atexit.register(GPIO.cleanup)
+
+        print(f"GPIO setup complete on pin {BUTTON_PIN}")
+
+    except Exception as e:
+        print(f"GPIO setup error: {e}")
+        raise
 
 
 def wait_for_button_press():
     """Wait for button press before continuing"""
     print("Waiting for button press to start marker creation...")
 
-    # Wait for button press (falling edge - button pressed)
-    GPIO.wait_for_edge(BUTTON_PIN, GPIO.FALLING)
+    try:
+        # Wait for button press (falling edge - button pressed) with timeout
+        channel = GPIO.wait_for_edge(
+            BUTTON_PIN, GPIO.FALLING, timeout=30000)  # 30 second timeout
 
-    # Debounce delay
-    time.sleep(0.2)
+        if channel is None:
+            print("No button press detected within timeout period. Continuing anyway...")
+        else:
+            # Debounce delay
+            time.sleep(0.2)
+            print("Button pressed! Starting marker creation process...")
 
-    print("Button pressed! Starting marker creation process...")
+    except Exception as e:
+        print(f"Button wait error: {e}")
+        print("Continuing with marker creation...")
 
 
+# Initialize GPIO
+setup_gpio()
 wait_for_button_press()
 
 s = requests.session()
