@@ -8,4 +8,4 @@ s.headers['Referer'] = address
 
 r = s.post(f"{address}/api/login", json={'username': 'marker', 'password': 'marker'}, verify=False)
 r = s.post(f"{address}/api/markers", json={'latitude': '29.647074', 'longitude': '-82.347934', 'name': 'marker1', 'uid': '00000000-0000-4000-8000-000000000001'}, verify=False)
-print(r.text)
+print(f"Response: {r.status_code} - {r.text}")
