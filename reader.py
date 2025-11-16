@@ -27,7 +27,8 @@ ser = serial.Serial(
     stopbits=serial.STOPBITS_ONE,
     timeout=0  # Read timeout in seconds
 )
-
+start_time = time.time()
+reads_in_second = 0
 try:
     # Open the serial port
     try:
@@ -47,24 +48,13 @@ try:
                 if len(data_packet[0]) == 34 and len(data_packet[1]) == 7:
                     u_response = data_packet[0].split(b'E')
                     marker_uid = u_response[1].decode('utf-8')
-                    print(marker_uid)
-        # # --- Receiving Bytes ---
-        # # Read up to 100 bytes (or until timeout)
-        # if ser.in_waiting >= 39:
-        #     time.sleep(0.2)  # Wait a bit for all data to arrive
+                    reads_in_second += 1
+                    if time.time() - start_time >= 1:
+                        print(f"Reads in the last second: {reads_in_second}")
+                        reads_in_second = 0
+                        start_time = time.time()
 
-        #     received_data = ser.read(80)
-        #     decode = received_data.decode('utf-8').strip()
-        #     if decode[1] != '\r':
-        #         # Decode the received bytes to a string
-        #         print(received_data)
-        # else:
-        #     print("No data received within the timeout period.")
-
-        # You can also use readline() to read until a newline character
-        # received_line = ser.readline()
-        # if received_line:
-        #     print(f"Received line: {received_line.decode('utf-8').strip()}")
+        
 
 except serial.SerialException as e:
     print(f"Error: {e}")
