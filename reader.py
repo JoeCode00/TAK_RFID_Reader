@@ -46,7 +46,8 @@ try:
             if len(data_packet) == 2:
                 if len(data_packet[0]) == 34 and len(data_packet[1]) == 7:
                     u_response = data_packet[0].split(b'E')
-                    print(u_response[1])
+                    marker_uid = u_response[1].decode('utf-8')
+                    print(marker_uid)
         # # --- Receiving Bytes ---
         # # Read up to 100 bytes (or until timeout)
         # if ser.in_waiting >= 39:
