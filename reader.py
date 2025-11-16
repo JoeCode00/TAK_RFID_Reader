@@ -40,7 +40,7 @@ try:
         if ser.in_waiting > 0:
                 data = ser.read(ser.in_waiting) # Read all available bytes
                 print(f"Received: {data.decode('utf-8')}") # Decode and print
-        time.sleep(0.1)
+        time.sleep(0.01)
     # # --- Receiving Bytes ---
     # # Read up to 100 bytes (or until timeout)
     # received_data = ser.read(100)
