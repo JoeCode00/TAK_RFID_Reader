@@ -13,7 +13,7 @@ import sys
 import time
 from pathlib import Path
 
-from pytak.crypto_functions import CertificateEnrollment
+from pytak.crypto_classes import CertificateEnrollment
 
 
 def setup_logging(verbose: bool = False):
