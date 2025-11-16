@@ -39,7 +39,9 @@ try:
 
         if ser.in_waiting > 0:
                 data = ser.read(ser.in_waiting) # Read all available bytes
-                print(f"{data.decode('utf-8')}") # Decode and print
+                string_data = data.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
+                card = string_data.split("R")
+                print(card)
         time.sleep(0.01)
     # # --- Receiving Bytes ---
     # # Read up to 100 bytes (or until timeout)
