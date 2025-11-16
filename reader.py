@@ -46,7 +46,7 @@ try:
             ser.flush()
             if received_data:
                 # Decode the received bytes to a string
-                print(f"Received: {received_data.decode('utf-8')}")
+                print(received_data.decode('utf-8'))
         # else:
         #     print("No data received within the timeout period.")
 
