@@ -46,7 +46,7 @@ try:
             decode = received_data.decode('utf-8').strip()
             if decode[1] != '\r':
                 # Decode the received bytes to a string
-                print(decode)
+                print(received_data)
         # else:
         #     print("No data received within the timeout period.")
 
