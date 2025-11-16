@@ -37,7 +37,7 @@ try:
     while True:
         ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
 
-        if ser.in_waiting > 0:
+        if ser.in_waiting > 28:
                 data = ser.read(ser.in_waiting) # Read all available bytes
                 string_data = data.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
                 split = string_data.split(",")
