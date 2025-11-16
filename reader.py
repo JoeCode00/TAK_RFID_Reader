@@ -50,8 +50,8 @@ try:
                     marker_uid = u_response[1].decode('utf-8')
                     reads_in_second += 1
         
+        print(f"Reads in the last second: {reads_in_second}") 
         if time.time() - start_time >= 1:
-            print(f"Reads in the last second: {reads_in_second}")
             reads_in_second = 0
             start_time = time.time()
 
