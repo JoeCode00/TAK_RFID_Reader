@@ -43,7 +43,9 @@ try:
         cleaned = data.replace(b'\nU\r\n', b'').replace(b'\nX\r\n', b'')
         if cleaned not in [b'', b'\r', b'\n', b'U', b'X', b'\r\n', b'\nU', b'\nX', b'U\r\n', b'X\r\n', b'X\r', b'U\r', b'\nU\r', b'\nX\r']:
             print(cleaned.decode('utf-8').strip())
-        
+        split = cleaned.split(b',')
+        if len(split) == 2:
+            print(len(split[1]))
         # # --- Receiving Bytes ---
         # # Read up to 100 bytes (or until timeout)
         # if ser.in_waiting >= 39:
