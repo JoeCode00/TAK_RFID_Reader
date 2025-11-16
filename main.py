@@ -17,7 +17,11 @@ try:
 
     x.L76X_Exit_BackupMode();
     while(1):
-        x.L76X_Gat_GNRMC()
+        try:
+            x.L76X_Gat_GNRMC()
+        except Exception as e:
+            print('GPS read error:',e)
+            continue
         if(x.Status == 1):
             print('Already positioned')
         else:
