@@ -44,9 +44,10 @@ try:
 
             received_data = ser.read(80)
             ser.flush()
-            if received_data:
+            decode = received_data.decode('utf-8')
+            if decode not in ["\r\n", "\n", "\r", "", "U", "X"]:
                 # Decode the received bytes to a string
-                print(received_data.decode('utf-8'))
+                print(decode)
         # else:
         #     print("No data received within the timeout period.")
 
