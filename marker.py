@@ -32,16 +32,28 @@ def wait_for_button_press():
     print("Waiting for button press to start marker creation...")
 
     try:
-        # Wait for button press (falling edge - button pressed) with timeout
-        channel = GPIO.wait_for_edge(
-            BUTTON_PIN, GPIO.FALLING, timeout=30000)  # 30 second timeout
+        # Alternative approach: poll the button state instead of using wait_for_edge
+        print("Polling button state (press button or wait 30 seconds)...")
+        start_time = time.time()
+        button_pressed = False
 
-        if channel is None:
-            print("No button press detected within timeout period. Continuing anyway...")
-        else:
-            # Debounce delay
-            time.sleep(0.2)
+        while time.time() - start_time < 30:  # 30 second timeout
+            # Read current button state (LOW when pressed due to pull-up)
+            if GPIO.input(BUTTON_PIN) == GPIO.LOW:
+                # Debounce - check if still pressed after short delay
+                time.sleep(0.05)
+                if GPIO.input(BUTTON_PIN) == GPIO.LOW:
+                    button_pressed = True
+                    break
+            time.sleep(0.1)  # Small delay to prevent excessive CPU usage
+
+        if button_pressed:
             print("Button pressed! Starting marker creation process...")
+            # Wait for button release to avoid multiple triggers
+            while GPIO.input(BUTTON_PIN) == GPIO.LOW:
+                time.sleep(0.05)
+        else:
+            print("No button press detected within timeout period. Continuing anyway...")
 
     except Exception as e:
         print(f"Button wait error: {e}")
