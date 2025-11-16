@@ -6,6 +6,20 @@ csrf_token = r.json()['response']['csrf_token']
 s.headers['X-XSRF-TOKEN'] = csrf_token
 s.headers['Referer'] = address
 
-r = s.post(f"{address}/api/login", json={'username': 'marker', 'password': 'marker'}, verify=False)
-r = s.post(f"{address}/api/markers", json={'latitude': '29.647074', 'longitude': '-82.347934', 'name': 'marker1', 'uid': '00000000-0000-4000-8000-000000000001'}, verify=False)
-print(f"Response: {r.status_code} - {r.text}")
+r = s.post(f"{address}/api/login", json={'username': 'marker',
+           'password': 'marker'}, verify=False)
+
+markers = [['29.647074', '-82.347934'],
+           ['29.647111', '-82.347507'],
+           ['29.647136', '-82.347376'],
+           ['29.647134', '-82.347215'],
+           ['29.647211', '-82.347024']]
+
+for index, marker in enumerate(markers):
+    latitude = marker[0]
+    longitude = marker[1]
+    name = str(index)
+    uid = '00000000-0000-4000-8000-00000000000' + str(index)
+    r = s.post(f"{address}/api/markers", json={'latitude': latitude,
+               'longitude': longitude, 'name': name, 'uid': uid}, verify=False)
+    print(f"Response: {r.status_code} - {r.text}")
