@@ -40,7 +40,7 @@ try:
         # --- Receiving Bytes ---
         # Read up to 100 bytes (or until timeout)
         if ser.in_waiting >= 39:
-            time.sleep(0.1)  # Wait a bit for all data to arrive
+            time.sleep(0.2)  # Wait a bit for all data to arrive
 
             received_data = ser.read(39)
             ser.flush()
