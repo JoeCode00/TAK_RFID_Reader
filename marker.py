@@ -1,4 +1,28 @@
 import requests
+import RPi.GPIO as GPIO
+import time
+
+# GPIO setup for button
+BUTTON_PIN = 18  # Change this to your desired GPIO pin number
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+
+def wait_for_button_press():
+    """Wait for button press before continuing"""
+    print("Waiting for button press to start marker creation...")
+
+    # Wait for button press (falling edge - button pressed)
+    GPIO.wait_for_edge(BUTTON_PIN, GPIO.FALLING)
+
+    # Debounce delay
+    time.sleep(0.2)
+
+    print("Button pressed! Starting marker creation process...")
+
+
+wait_for_button_press()
+
 s = requests.session()
 address = "http://45.55.177.62:8080"
 r = s.get(f"{address}/api/login", json={}, verify=False)
