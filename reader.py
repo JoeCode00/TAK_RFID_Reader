@@ -42,10 +42,11 @@ try:
         if ser.in_waiting >= 39:
             time.sleep(0.1)  # Wait a bit for all data to arrive
 
-        received_data = ser.read(39)
-        if received_data:
-            # Decode the received bytes to a string
-            print(f"Received: {received_data.decode('utf-8')}")
+            received_data = ser.read(39)
+            ser.flush()
+            if received_data:
+                # Decode the received bytes to a string
+                print(f"Received: {received_data.decode('utf-8')}")
         # else:
         #     print("No data received within the timeout period.")
 
