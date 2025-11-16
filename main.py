@@ -1,9 +1,10 @@
-import L76X
+import gps
+import gps.L76X
 import time
 import math
 
 try:
-    x=L76X.L76X()
+    x=gps.L76X.L76X()
     x.L76X_Set_Baudrate(9600)
     #x.L76X_Send_Command(x.SET_NMEA_BAUDRATE_115200)
     #time.sleep(2)
