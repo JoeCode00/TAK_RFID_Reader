@@ -13,7 +13,7 @@ import sys
 import time
 from pathlib import Path
 
-from pytak import CertificateEnrollment
+import pytak
 
 
 def setup_logging(verbose: bool = False):
@@ -65,7 +65,7 @@ async def main():
 
     try:
         # Initialize certificate enrollment
-        enrollment = CertificateEnrollment(trust_store_path=args.trust_store)
+        enrollment = pytak.CertificateEnrollment(trust_store_path=args.trust_store)
 
         logger.info(f"Starting certificate enrollment for user: {args.username}")
         logger.info(f"Domain: {args.domain}")
