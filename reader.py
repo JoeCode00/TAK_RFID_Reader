@@ -42,7 +42,7 @@ try:
                 string_data = data.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
                 split = string_data.split(",")
                 for item in split:
-                    if item.startswith("E"):
+                    if item[0]=="E":
                         card = item
                         print(card)
         time.sleep(0.01)
