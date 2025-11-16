@@ -45,7 +45,7 @@ try:
             received_data = ser.read(80)
             ser.flush()
             decode = received_data.decode('utf-8')
-            if decode not in ["\r\n", "\n", "\r", "", "U", "X"]:
+            if decode not in ["\r\n", "\n", "\r", "", "U\n", "X\n"]:
                 # Decode the received bytes to a string
                 print(decode)
         # else:
