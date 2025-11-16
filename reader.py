@@ -39,13 +39,15 @@ try:
 
         received_line = ser.readline()
         string_data = received_line.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
-        split = string_data.split(",")
-        for item in split:
-            if item is not None:
-                if len(item)>0:
-                    if item[0]=="E":
-                        card = item
-                        print(card)
+        print(string_data)
+
+        # split = string_data.split(",")
+        # for item in split:
+        #     if item is not None:
+        #         if len(item)>0:
+        #             if item[0]=="E":
+        #                 card = item
+        #                 print(card)
 
         # if ser.in_waiting > 28:
         #     data = ser.read(ser.in_waiting) # Read all available bytes
