@@ -15,7 +15,7 @@ for marker in response_markers.json()['results']:
     print(callsign, lattitude, longitude)
 
 import serial
-
+import time
 # Configure the serial port
 # Replace 'COM1' with your actual serial port (e.g., '/dev/ttyUSB0' on Linux)
 # Set the baudrate to match your device's configuration
@@ -25,7 +25,7 @@ ser = serial.Serial(
     bytesize=serial.EIGHTBITS,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
-    timeout=0.2  # Read timeout in seconds
+    timeout=0  # Read timeout in seconds
 )
 
 try:
@@ -34,17 +34,21 @@ try:
         ser.open()
     except Exception as e:
         False
-    
-    ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
+    while True:
+        ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
 
-    # --- Receiving Bytes ---
-    # Read up to 100 bytes (or until timeout)
-    received_data = ser.read(100)
-    if received_data:
-        # Decode the received bytes to a string
-        print(f"Received: {received_data.decode('utf-8')}")
-    else:
-        print("No data received within the timeout period.")
+        if ser.in_waiting > 0:
+                data = ser.read(ser.in_waiting) # Read all available bytes
+                print(f"Received: {data.decode('utf-8')}") # Decode and print
+        time.sleep(0.1)
+    # # --- Receiving Bytes ---
+    # # Read up to 100 bytes (or until timeout)
+    # received_data = ser.read(100)
+    # if received_data:
+    #     # Decode the received bytes to a string
+    #     print(f"Received: {received_data.decode('utf-8')}")
+    # else:
+    #     print("No data received within the timeout period.")
 
     # You can also use readline() to read until a newline character
     # received_line = ser.readline()
