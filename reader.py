@@ -42,7 +42,7 @@ try:
         if ser.in_waiting >= 39:
             time.sleep(0.2)  # Wait a bit for all data to arrive
 
-            received_data = ser.read(39)
+            received_data = ser.read(80)
             ser.flush()
             if received_data:
                 # Decode the received bytes to a string
