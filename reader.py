@@ -37,44 +37,19 @@ try:
     while True:
         ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
 
-        received_line = ser.readline()
-        ser.flush()
-        string_data = received_line.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
-        if len(string_data)>2:
-            print(string_data)
+        # --- Receiving Bytes ---
+        # Read up to 100 bytes (or until timeout)
+        received_data = ser.read(39)
+        if received_data:
+            # Decode the received bytes to a string
+            print(f"Received: {received_data.decode('utf-8')}")
+        # else:
+        #     print("No data received within the timeout period.")
 
-        # split = string_data.split(",")
-        # for item in split:
-        #     if item is not None:
-        #         if len(item)>0:
-        #             if item[0]=="E":
-        #                 card = item
-        #                 print(card)
-
-        # if ser.in_waiting > 28:
-        #     data = ser.read(ser.in_waiting) # Read all available bytes
-        #     string_data = data.decode('utf-8').strip()  # Decode bytes to string and strip whitespace
-        #     split = string_data.split(",")
-        #     for item in split:
-        #         if item is not None:
-        #             if len(item)>0:
-        #                 if item[0]=="E":
-        #                     card = item
-        #                     print(card)
-        time.sleep(1)
-    # # --- Receiving Bytes ---
-    # # Read up to 100 bytes (or until timeout)
-    # received_data = ser.read(100)
-    # if received_data:
-    #     # Decode the received bytes to a string
-    #     print(f"Received: {received_data.decode('utf-8')}")
-    # else:
-    #     print("No data received within the timeout period.")
-
-    # You can also use readline() to read until a newline character
-    # received_line = ser.readline()
-    # if received_line:
-    #     print(f"Received line: {received_line.decode('utf-8').strip()}")
+        # You can also use readline() to read until a newline character
+        # received_line = ser.readline()
+        # if received_line:
+        #     print(f"Received line: {received_line.decode('utf-8').strip()}")
 
 except serial.SerialException as e:
     print(f"Error: {e}")
