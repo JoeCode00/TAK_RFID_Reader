@@ -42,10 +42,10 @@ try:
         data.replace(b'\r\r', b'').replace(b'\n\n', b'')
         cleaned = data.replace(b'\nU\r\n', b'').replace(b'\nX\r\n', b'')
         if cleaned not in [b'', b'\r', b'\n', b'U', b'X', b'\r\n', b'\nU', b'\nX', b'U\r\n', b'X\r\n', b'X\r', b'U\r', b'\nU\r', b'\nX\r']:
-            split = cleaned.split(b',')
-            if len(split) == 2:
-                if len(split[0]) == 34 and len(split[1]) == 7:
-                    u_response = split[0].split[b"E"]
+            data_packet = cleaned.split(b',')
+            if len(data_packet) == 2:
+                if len(data_packet[0]) == 34 and len(data_packet[1]) == 7:
+                    u_response = data_packet[0].split(b'E')
                     print(u_response[1])
         # # --- Receiving Bytes ---
         # # Read up to 100 bytes (or until timeout)
