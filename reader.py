@@ -38,7 +38,7 @@ try:
         ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
 
         data = ser.readall()
-        data.replace(b'\r\n\n', b'').replace(b'\r\r', b'\r')
+        data.replace(b'\r\r', b'').replace(b'\n\n', b'')
         cleaned = data.replace(b'\nU\r\n', b'').replace(b'\nX\r\n', b'')
         if cleaned not in [b'', b'\r', b'\n', b'U', b'X', b'\r\n', b'\nU', b'\nX', b'U\r\n', b'X\r\n', b'X\r', b'U\r', b'\nU\r', b'\nX\r']:
             print(cleaned.decode('utf-8').strip())
