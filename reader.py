@@ -60,7 +60,7 @@ try:
         #                 if item[0]=="E":
         #                     card = item
         #                     print(card)
-        time.sleep(0.01)
+        time.sleep(0.1)
     # # --- Receiving Bytes ---
     # # Read up to 100 bytes (or until timeout)
     # received_data = ser.read(100)
