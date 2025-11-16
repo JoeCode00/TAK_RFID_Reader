@@ -38,7 +38,9 @@ try:
         ser.write(bytes([0x0A, 0x55, 0x30, 0x2C, 0x52, 0x31, 0x2C, 0x30, 0x2C, 0x31, 0x0D]))
 
         data = ser.readall()
-        print(data.replace(b'\r', b'').replace(b'\n', b''))
+        cleaned = data.replace(b'\nU\r\n', b'').replace(b'\nX\r\n', b'')
+        if cleaned != b'':
+            print(cleaned)
         # # --- Receiving Bytes ---
         # # Read up to 100 bytes (or until timeout)
         # if ser.in_waiting >= 39:
