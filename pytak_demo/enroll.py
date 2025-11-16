@@ -65,7 +65,7 @@ async def main():
 
     try:
         # Initialize certificate enrollment
-        enrollment = pytak.CertificateEnrollment(trust_store_path=args.trust_store)
+        enrollment = pytak.crypto_classes.CertificateEnrollment(trust_store_path=args.trust_store)
 
         logger.info(f"Starting certificate enrollment for user: {args.username}")
         logger.info(f"Domain: {args.domain}")
