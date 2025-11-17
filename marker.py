@@ -74,17 +74,17 @@ s.headers['Referer'] = address
 r = s.post(f"{address}/api/login", json={'username': 'marker',
            'password': 'marker'}, verify=False)
 
-markers = [['29.647074', '-82.347934'],
-           ['29.647111', '-82.347507'],
-           ['29.647136', '-82.347376'],
-           ['29.647134', '-82.347215'],
-           ['29.647211', '-82.347024']]
+markers = [['29.647074', '-82.347934', 'aaaaa'],
+           ['29.647111', '-82.347507', 'bbbbb'],
+           ['29.647136', '-82.347376', 'ccccc'],
+           ['29.647134', '-82.347215', 'ddddd'],
+           ['29.647211', '-82.347024', 'eeeee']]
 
 for index, marker in enumerate(markers):
     latitude = marker[0]
     longitude = marker[1]
-    name = str(index)
+    name = marker[2]
     uid = '00000000-0000-4000-8000-00000000000' + str(index)
     r = s.post(f"{address}/api/markers", json={'latitude': latitude,
-               'longitude': longitude, 'name': name, 'uid': uid}, verify=False)
+               'longitude': longitude, 'name': name, 'uid': uid, 'callsign': 'a'}, verify=False)
     print(f"Response: {r.status_code} - {r.text}")
