@@ -88,5 +88,5 @@ for index, marker in enumerate(markers):
     name = marker[2]
     uid = '00000000-0000-4000-8000-00000000000' + str(index)
     r = s.post(f"{address}/api/markers", json={'latitude': latitude,
-               'longitude': longitude, 'name': name, 'uid': uid, 'callsign': 'a'}, verify=False)
+               'longitude': longitude, 'name': name, 'uid': uid, 'relation': 'a'}, verify=False)
     print(f"Response: {r.status_code} - {r.text}")
