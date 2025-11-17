@@ -5,7 +5,7 @@ import atexit
 
 # GPIO setup for button
 BUTTON_PIN = 18  # Change this to your desired GPIO pin number
-
+REQUIRE_BUTTON = False
 
 def setup_gpio():
     """Initialize GPIO with proper cleanup"""
@@ -62,7 +62,9 @@ def wait_for_button_press():
 
 # Initialize GPIO
 setup_gpio()
-wait_for_button_press()
+
+if REQUIRE_BUTTON:
+    wait_for_button_press()
 
 s = requests.session()
 address = "http://45.55.177.62:8080"
